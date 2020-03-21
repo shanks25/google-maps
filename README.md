@@ -18,8 +18,7 @@
 ``` 
 use EvilGenius\Map; 
 
- $map = new Map('your-google-maps-key');  
-  
+  $map = new Map('your-google-maps-key');  
   
   $map->getTwoPointDistance($firstLat, $firstLong, $secLat, $secLong); // returns distance in km
   
