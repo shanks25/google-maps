@@ -16,7 +16,7 @@
 # Usage
 
 ``` 
-use EvilGenius\Map; 
+  use EvilGenius\Map; 
 
   $map = new Map('your-google-maps-key');  
   
