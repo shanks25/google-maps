@@ -1,7 +1,6 @@
 # Google-maps
 #Get Time Travel Data From Google Maps API 
 
-
 - Namespaced under EvenGenius
 - API throws exceptions instead of returning errors
 - All requests and responses are communicated over JSON
@@ -31,4 +30,4 @@ You are Free to use any way you like
 
 # Release
 
-1. V 1.0.1 Contains two methods 
+1. v1.0.1 Contains two methods 
