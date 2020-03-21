@@ -19,24 +19,11 @@ class Map
     public   function getTwoPointDistance($firstLat, $firstLong, $secLat, $secLong)
     {
 
-        $pick_point1 = $firstLat . ',' . $firstLong;
-        $drop_point1 = urlencode($secLat . ',' . $secLong);
-
-        $key =  $this->key;
-
-        $url = 'https://maps.googleapis.com/maps/api/directions/json?origin=' . $firstLat . ',' . $firstLong . '&destination=' . $secLat . ',' . $secLong . '&sensor=false&mode=driving&key=' . $key;
-
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_URL, $url);
-        $result = curl_exec($ch);
-        curl_close($ch);
-
-        return    $output = json_decode($result, true);
+        $output = $this->callGoogleMaps($firstLat, $firstLong, $secLat, $secLong);
         if (array_key_exists('error_message', $output)) {
-         return $output['error_message'] ;
-     } 
-     if (isset($output['routes'][0])) {
+           return $output['error_message'] ;
+       } 
+       if (isset($output['routes'][0])) {
         $distancekm = $output['routes'][0]['legs'][0]['distance']['value'];
             // $distanceshow = $output['routes'][0]['legs'][0]['distance']['text'];
 
@@ -54,6 +41,22 @@ class Map
 public   function getTwoPointTimeInSeconds($firstLat, $firstLong, $secLat, $secLong)
 {
 
+   $output = $this->callGoogleMaps($firstLat, $firstLong, $secLat, $secLong);
+   if (array_key_exists('error_message', $output)) {
+       return $output['error_message'] ;
+   } 
+   if (isset($output['routes'][0])) {
+     $seconds = $output['routes'][0]['legs'][0]['duration']['value'];
+
+ }   
+ return $seconds;
+ 
+}
+
+
+public function callGoogleMaps($firstLat, $firstLong, $secLat, $secLong)
+{
+
     $pick_point1 = $firstLat . ',' . $firstLong;
     $drop_point1 = urlencode($secLat . ',' . $secLong);
 
@@ -67,21 +70,9 @@ public   function getTwoPointTimeInSeconds($firstLat, $firstLong, $secLat, $secL
     $result = curl_exec($ch);
     curl_close($ch);
 
-    $output = json_decode($result, true);
-    if (array_key_exists('error_message', $output)) {
-     return $output['error_message'] ;
- } 
- if (isset($output['routes'][0])) {
-   $seconds = $output['routes'][0]['legs'][0]['duration']['value'];
 
-} 
+    return    $output = json_decode($result, true);
 
-else {
-    $seconds = 0; 
 }
-return $seconds;
-}
-
-
 
 }
